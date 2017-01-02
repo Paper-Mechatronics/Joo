@@ -185,7 +185,7 @@ Events.on(engine, 'beforeUpdate', function(event) {
   var y1 = compositeArray[1].bodies[0].position.y
   var y2 = compositeArray[0].constraints[0].pointA.y
   planetaryBrace = Math.floor(Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) ))
-}
+})
 ////////////////////// RUN /////////////////////////////
 // add initial parts first time cod runs
 addGearComposite((window.innerWidth)*(0.75*0.45)+(radius+(toothHeight*0.6)), (window.innerHeight)*(0.65));

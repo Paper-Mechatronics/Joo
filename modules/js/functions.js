@@ -49,7 +49,8 @@ var openCloseModule = false,
     crankModule = false,
     rotateModule = false,
     planetaryModule = false,
-    spurModule = false
+    spurModule = false,
+    walkingModule = false
 // Collision Groups
 var collisionCategory = 0x0001,
     otherCategory = 0x0002

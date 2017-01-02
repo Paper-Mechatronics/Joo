@@ -44,7 +44,7 @@ else{
         
         <div class = "controls-dark">
             <div>
-                <p>Motor Gear Size:</p>
+                <p>Motor-Driving (Planet) Gear Size:</p>
                 <br>
                 <button class = "gear-size object btn btn-primary" type="button" id="setSmallGear1P" onclick="smallGear1()">1</button>
                 <button class = "gear-size object btn btn-primary" type="button" id="setMedGear1P" onclick="mediumGear1()">2</button>
@@ -52,7 +52,7 @@ else{
             </div>
             <br>
             <div>
-                <p>Static Gear Size:</p>
+                <p>Static (Sun) Gear Size:</p>
                 <br>
                 <button class = "gear-size object btn btn-primary" type="button" id="setSmallGear2P" onclick="smallGear2()">1</button>
                 <button class = "gear-size object btn btn-primary" type="button" id="setMedGear2P" onclick="mediumGear2()">2</button>
