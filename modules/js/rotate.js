@@ -38,7 +38,7 @@ function changeBodyRotate(index){
     }
     // add constraint to composite
     Composite.add(compositeArray[index], Constraint.create({pointA: { x: tmpConstraintXPoint, y: tmpConstraintYPoint },
-        bodyB: compositeArray[index].bodies[0], 
+        bodyB: compositeArray[index].bodies[0],
         stiffness: 1
       })
     )
@@ -72,7 +72,7 @@ function changeBodyPlanetary(index){
       Composite.add(compositeArray[index], Bodies.circle(tmpConstraintXPoint, tmpConstraintYPoint, 1))
     }
     Composite.add(compositeArray[index], Constraint.create({pointA: { x: tmpConstraintXPoint, y: tmpConstraintYPoint },
-        bodyB: compositeArray[index].bodies[0], 
+        bodyB: compositeArray[index].bodies[0],
         stiffness: 1
       })
     )
@@ -85,7 +85,7 @@ function changeBodyPlanetary(index){
   Composite.remove(compositeArray[1], compositeArray[1].constraints[0]);
   Body.setPosition(compositeArray[1].bodies[0], {x:compositeArray[0].constraints[0].pointA.x - compositeArray[0].radius - compositeArray[1].radius - ((toothHeight*0.6)*2), y:(window.innerHeight)*(0.65) })
   Composite.add(compositeArray[1], Constraint.create({pointA: { x: compositeArray[0].constraints[0].pointA.x, y: compositeArray[0].constraints[0].pointA.y },
-    bodyB: compositeArray[1].bodies[0], 
+    bodyB: compositeArray[1].bodies[0],
     stiffness: 1
   }));
 }
@@ -98,7 +98,7 @@ function addPlanetaryGearComposite(centerX, centerY, constraintX, constraintY){
   // increase number of constraints by 1
   totalConstraints++;
   // add new composite to composite array
-  compositeArray.push( 
+  compositeArray.push(
     // create composite
     Composite.create({
       // create body from vertex array verts2[]
@@ -124,7 +124,7 @@ function addPlanetaryGearComposite(centerX, centerY, constraintX, constraintY){
     // create constraint to rotate around
     Constraint.create({pointA: { x: constraintX, y: constraintY },
       // body to constrain
-      bodyB: compositeArray[totalComposites-1].bodies[0], 
+      bodyB: compositeArray[totalComposites-1].bodies[0],
       stiffness: 1
     })
   )
@@ -150,7 +150,7 @@ function smallGear1(){
   toothWidthDegree = 4;
   toothWidth = (toothWidthDegree/conversionFactor);
   // change the gear body
-  changeBodyRotate(0);  
+  changeBodyRotate(0);
 }
 // see smallGear1()
 function mediumGear1(){

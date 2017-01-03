@@ -1,9 +1,9 @@
 body {
-        padding: 0; 
+        padding: 0;
         margin: 0;
         background-color: #222;
         color: #000;
-    } 
+    }
 html, body{
   height:100%;
 }
@@ -17,7 +17,7 @@ canvas {
     width: 75%;
     height: 100%;
     z-index: -1;
-} 
+}
 .container{
     position: relative;
     float: left;
@@ -149,11 +149,11 @@ p {
     padding-bottom: 10px;
 }
 .controls label, .controls input{
-    
+
 }
 .slider-div{
     height: 30px;
-    
+
 }
 .slider-div input, .slider-div label{
     position: relative;
@@ -227,7 +227,7 @@ input[type=range]::-ms-track {
     font-size: 1.8em;
 }
 a:focus, a:hover{
-    text-decoration: none;  
+    text-decoration: none;
 }
 .btn-icon {
     max-width: 100%;
