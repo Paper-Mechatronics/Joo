@@ -96,8 +96,8 @@ else{
             <div>
                 <p>Cam Type:</p>
                 <br>
-                <button class = "cam-type object btn btn-primary" type="button" id="" onclick="changeEgg()">Egg</button>
-                <button class = "cam-type object btn btn-primary" type="button" id="" onclick="changeShell()">Shell</button>
+                <button class = "cam-type object btn btn-primary" type="button" id="eggShape" onclick="changeEgg()">Egg</button>
+                <button class = "cam-type object btn btn-primary" type="button" id="shellShape" onclick="changeShell()">Shell</button>
 
             </div>
             <br>
@@ -108,11 +108,14 @@ else{
                 <button class = "object btn btn-primary" type="button" id="continuous" onclick="continuousMotor()">Continuous</button>
             </div>
             <br> -->
-            <div id = "a-slider" class = "slider-div">
+						<div id = "a-slider" class = "slider-div">
                 <label>Motor Speed: <span id = "motorSpeedValue"></span> (<span id = "motorAngleValue"></span>&deg;)</label>
                 <br>
-                <input type="range" id="motorSpeed" value="40" min="0" max="50" oninput = "speedInput(this.value)" onchange = "changeMotorSpeed(this.value)">
+                <button class = "object btn btn-primary simulation glyphicon glyphicon-pause" type="button" onclick="pause()"><!-- <span class="glyphicon glyphicon-pause" aria-hidden="true"></span> --></button>
+                <input class = "simulation" type="range" id="motorSpeed" value="40" min="0" max="50" oninput = "speedInput(this.value)" onchange = "changeMotorSpeed(this.value)">
+                <br>
             </div>
+            <br>
             <br>
             <!--<div>
             <p>Simulation:</p>
