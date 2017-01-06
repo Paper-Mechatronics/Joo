@@ -484,7 +484,8 @@ function addRotateRect(width, height, centerX, centerY){
         shape: "rect",
         width: width,
         height: height,
-        lock: false
+        lock: false,
+        stiffness: 1
       })
   )
   constraintArray.push(
@@ -1129,7 +1130,7 @@ function createConstraint3(constraintStart, constraintDestination){
 
 
 //////////////////////// WALKING MODULE ////////////////////////////////////
-function createTriConstraintFakeCorners(constraintStart, constraintDestination){
+function createTriConstraintFakeCorners(constraintStart, constraintDestination,length,stiffness){
   var startOffset;
   var startOffset2;
   var destOffset;
@@ -1182,8 +1183,8 @@ function createTriConstraintFakeCorners(constraintStart, constraintDestination){
           bodyA: constraintStart ,
           bodyB: constraintDestination ,
           pointB: { x: destOffset*Math.cos(constraintDestination.angle) + destOffset2*Math.sin(constraintDestination.angle), y: destOffset*Math.sin(constraintDestination.angle) + destOffset2*Math.cos(constraintDestination.angle)}, 
-          length: 200,
-          stiffness: 0.001
+          length: length,
+          stiffness: stiffness
           
         })]
     }))
@@ -1250,7 +1251,7 @@ function createTriConstraintEdges(constraintStart, constraintDestination){
           bodyA: constraintStart ,
           bodyB: constraintDestination ,
           pointB: { x: endOffsetX*Math.cos(constraintDestination.angle) + endOffsetY*Math.sin(constraintDestination.angle), y: endOffsetX*Math.sin(constraintDestination.angle) + endOffsetY*Math.cos(constraintDestination.angle)}, 
-          stiffness: 0.05
+          stiffness: 1
           
         })]
     }))
@@ -2303,6 +2304,11 @@ Events.on(engine, 'beforeUpdate', function(event) {
           compositeArray[3].bodies[0].collisionFilter.mask = otherCategory
         }
       }
+      if(walkingModule){
+        compositeArray[1].bodies[0].collisionFilter.mask = otherCategory
+        compositeArray[2].bodies[0].collisionFilter.mask = otherCategory
+        // compositeArray[3].bodies[0].collisionFilter.mask = otherCategory
+      }
       if(compositeArray[i].bodies[1]){
         compositeArray[i].bodies[1].collisionFilter.mask = otherCategory
         if(compositeArray[i].bodies[2]){
@@ -2436,7 +2442,9 @@ Events.on(engine, 'beforeUpdate', function(event) {
         }
       }
       // make all the constraints in the composites invisible
-      compositeArray[i].constraints[0].render.visible = false;
+      if(compositeArray[i].constraints[0]){
+        compositeArray[i].constraints[0].render.visible = false;
+      }
       
       // if lock is true then set the angle to whatever the rotation parameter for that body is
       if(compositeArray[i].lock == true){

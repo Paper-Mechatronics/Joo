@@ -77,9 +77,9 @@ else{
             <div>
                 <p>Gear Size:</p>
                 <br>
-                <button class = "gear-size object btn btn-primary" type="button" id="setSmallGear" onclick="smallGear()">1</button>
-                <button class = "gear-size object btn btn-primary" type="button" id="setMedGear" onclick="mediumGear()">2</button>
-                <button class = "gear-size object btn btn-primary" type="button" id="setLargeGear" onclick="largeGear()">3</button>
+                <button class = "gear-size object btn btn-primary" type="button" id="setSmallGear" onclick="">1</button>
+                <button class = "gear-size object btn btn-primary" type="button" id="setMedGear" onclick="">2</button>
+                <button class = "gear-size object btn btn-primary" type="button" id="setLargeGear" onclick="">3</button>
             </div>
             <br>
             <div>
