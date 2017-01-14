@@ -330,8 +330,7 @@ function flapCase(gear1Space,gear2Space,beamSpace,verticalSpace,motor){
 function planetaryCase(caseLength,caseWidth){
   if(planetaryModule){
     doc.rect(15*frameScale,(15)*frameScale,caseLength, caseWidth)
-    doc.circle((15*frameScale)+(caseLength/2),(15*frameScale)+(caseWidth/2), 2)
-    doc.rect((15*frameScale) + (caseLength/2) - 10,(15*frameScale) + (caseWidth/2) - 10,20,40)
+    doc.circle((15*frameScale)+(caseLength/2),(15*frameScale)+(caseWidth/2), 6)
     square(0)
     square(232.8)
   }
@@ -563,116 +562,100 @@ function showGear(num){
 
 var doc = new jsPDF("landscape");
 function showAll(){
-  if(constraintLength && !flappingModule && !spurModule){
-    buttonDisplay()
-    doc.addImage(imgData, 'PNG', 15, 160, 143.4375, 45);
-    for(var k = 0; k<1+mirror;k++){
-      for(var i = 0; i<2;i++){
-      doc.rect(xMargin*scale2*size,((yMargin+(linkageHeightPlus*i))*scale2*size)+(75*k),constraintLength*scale2*size,linkageHeight*scale2*size)
-      var increment = 0
-        for(var j = 0; j<3;j++){
-          console.log("working")
-          increment += varArray[j]
-          var segments = 8
-          if(i == 0){
-            if(j<2){
-              for(var dashed = 0;dashed<segments;dashed++){
-                doc.line((xMargin+increment)*scale2*size,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size)+(75*k),(xMargin+increment)*scale2*size,(((yMargin+((linkageHeight/segments)*(dashed+1)-5))+(linkageHeightPlus*i))*scale2*size)+(75*k))
-              }
-            }
-            else{
-              segments = 15
-              for(var dashed = 0;dashed<segments;dashed++){
-                doc.line((xMargin+increment)*scale2*size,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size)+(75*k),(xMargin+increment)*scale2*size,(((yMargin+((linkageHeight/segments)*(dashed+1)-3))+(linkageHeightPlus*i))*scale2*size)+(75*k))
-              }
-            }
-            if(j == 0){
-              doc.circle((xMargin+(horizontalSpace*(1/3)))*scale2*size, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*scale2*size)+(75*k), (5*scale*size));
-              doc.circle((xMargin+(horizontalSpace*(2/3)))*scale2*size, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*scale2*size)+(75*k), (3*scale*size));
-              doc.circle(((xMargin+constraintLength) - increment+(horizontalSpace*(2/3)))*scale2*size, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*scale2*size)+(75*k), (3*scale*size));
-            }
-          }
-          else{
-            if(j<2){
-              for(var dashed = 0;dashed<segments;dashed++){
-                doc.line(((xMargin+constraintLength) - increment)*scale2*size,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size)+(75*k),((xMargin+constraintLength) - increment)*scale2*size,(((yMargin+((linkageHeight/segments)*(dashed+1)-5))+(linkageHeightPlus*i))*scale2*size)+(75*k))
-              }
-            }
-            else{
-              segments = 15
-              for(var dashed = 0;dashed<segments;dashed++){
-                doc.line(((xMargin+constraintLength) - increment)*scale2*size,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size)+(75*k),((xMargin+constraintLength) - increment)*scale2*size,(((yMargin+((linkageHeight/segments)*(dashed+1)-3))+(linkageHeightPlus*i))*scale2*size)+(75*k))
-              }
-            }
-            if(j == 0){
-              doc.circle(((xMargin+constraintLength) - increment+(horizontalSpace*(1/3)))*scale2*size, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*scale2*size)+(75*k), (5*scale*size));
-              doc.circle(((xMargin+constraintLength) - increment+(horizontalSpace*(2/3)))*scale2*size, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*scale2*size)+(75*k), (3*scale*size));
-              doc.circle((xMargin+(horizontalSpace*(2/3)))*scale2*size, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*scale2*size)+(75*k), (3*scale*size));
-            }
-          }
-          
-        }
-      }
-    }
-  }
-
+  doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
   if(flappingModule || spurFlap){
-    doc.addImage(imgData2, 'PNG', 15, 160, 70.3125, 45);
-    doc.addImage(flapImageData, 'PNG', 85, 160, 137.755, 50);
-    var wingLengthL = flapBeamWidthL + (Math.sqrt((flapBeamOffset*flapBeamOffset)+(flapBeamHeightL*flapBeamHeightL)))+flapHorizontalSpace + 10 +10 + 10 + 20
-    var wingBendLengthL = (Math.sqrt((flapBeamOffset*flapBeamOffset)+(flapBeamHeightL*flapBeamHeightL)))
-    var wingLengthR = flapBeamWidthR + (Math.sqrt((flapBeamOffset*flapBeamOffset)+(flapBeamHeightR*flapBeamHeightR)))+flapHorizontalSpace + 10 +10 + 10 + 20
-    var wingBendLengthR = (Math.sqrt((flapBeamOffset*flapBeamOffset)+(flapBeamHeightR*flapBeamHeightR)))
-    for(var i = 0; i<1;i++){
-      doc.rect(xMargin*scale2*size,((yMargin+(linkageHeightPlus*i))*scale2*size),wingLengthL,linkageHeight*scale2*size)
-      var segments = 8
-
-      for(var dashed = 0;dashed<segments;dashed++){
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthL,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthL,(((yMargin+((linkageHeight/segments)*(dashed+1)-5))+(linkageHeightPlus*i))*scale2*size))
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthL+flapBeamWidthL+10,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthL+flapBeamWidthL+10,(((yMargin+((linkageHeight/segments)*(dashed+1)-5))+(linkageHeightPlus*i))*scale2*size))
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthL+flapBeamWidthL+10+10,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthL+flapBeamWidthL+10+10,(((yMargin+((linkageHeight/segments)*(dashed+1)-5))+(linkageHeightPlus*i))*scale2*size))
-      }
-      segments = 15
-      for(var dashed = 0;dashed<segments;dashed++){
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace,(((yMargin+((linkageHeight/segments)*(dashed+1)-3))+(linkageHeightPlus*i))*scale2*size))
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthL+flapBeamWidthL,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthL+flapBeamWidthL,(((yMargin+((linkageHeight/segments)*(dashed+1)-3))+(linkageHeightPlus*i))*scale2*size))
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthL+flapBeamWidthL+10+10+10,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthL+flapBeamWidthL+10+10+10,(((yMargin+((linkageHeight/segments)*(dashed+1)-3))+(linkageHeightPlus*i))*scale2*size))
-      }
-    }
-    for(var i = 1; i<2;i++){
-      doc.rect(xMargin*scale2*size,((yMargin+(linkageHeightPlus*i))*scale2*size),wingLengthR,linkageHeight*scale2*size)
-      var segments = 8
-
-      for(var dashed = 0;dashed<segments;dashed++){
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthR,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthR,(((yMargin+((linkageHeight/segments)*(dashed+1)-5))+(linkageHeightPlus*i))*scale2*size))
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthR+flapBeamWidthR+10,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthR+flapBeamWidthR+10,(((yMargin+((linkageHeight/segments)*(dashed+1)-5))+(linkageHeightPlus*i))*scale2*size))
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthR+flapBeamWidthR+10+10,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthR+flapBeamWidthR+10+10,(((yMargin+((linkageHeight/segments)*(dashed+1)-5))+(linkageHeightPlus*i))*scale2*size))
-      }
-      segments = 15
-      for(var dashed = 0;dashed<segments;dashed++){
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace,(((yMargin+((linkageHeight/segments)*(dashed+1)-3))+(linkageHeightPlus*i))*scale2*size))
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthR+flapBeamWidthR,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthR+flapBeamWidthR,(((yMargin+((linkageHeight/segments)*(dashed+1)-3))+(linkageHeightPlus*i))*scale2*size))
-        doc.line((xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthR+flapBeamWidthR+10+10+10,((yMargin+((linkageHeight/segments)*(dashed))+(linkageHeightPlus*i))*scale2*size),(xMargin*scale2*size)+flapHorizontalSpace+wingBendLengthR+flapBeamWidthR+10+10+10,(((yMargin+((linkageHeight/segments)*(dashed+1)-3))+(linkageHeightPlus*i))*scale2*size))
-      }
-    }
+    flapCase(gear1Spacing, gear2Spacing, beamSpace, verticalSpacing,motor)
   }
-  if(numOfCams){
-    if(camType == 0){
-      if(spurFlap || flappingModule || constraintLength){
-        doc.rect(15*frameScale, 85, 283,15)
-      }
-      else{
-        doc.rect(15*frameScale, 15*frameScale, 283,15)
-      }
+  if(flappingModule == 1){
+    doc.addPage()
+    doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+    flapParts()
+    roundedFlapRect(flapConnectorLengthL,flapConnectorLengthR)
+
+  }
+  var crankSize
+  if(numOfLargeCranks){
+    crankSize = 132
+  }
+  else if(numOfMediumCranks){
+    crankSize = 114.4
+  }
+  else if(numOfSmallCranks){
+    crankSize = 96.8
+  }
+  if(numOfLinGears){
+    var caseLength = 180
+    var caseWidth = (radius*3)+ width + toothHeight
+    doc.rect(15*frameScale,(15)*frameScale,caseLength,caseWidth)
+    if(mirror==0){
+      doc.circle((15*frameScale)+caseLength-46.666666667 - 10 - 3,((15)*frameScale)+((1.5*radius)-10) + 10,5)
     }
     else{
-      if(spurFlap || flappingModule || constraintLength){
-        doc.rect(15*frameScale, 85, 262,15)
+      doc.rect((15*frameScale)+caseLength-((2*radius)-(40/3)),((15)*frameScale)+((caseWidth/2)-10),-40,20)
+      doc.rect(15*frameScale,(15)*frameScale+caseWidth+5+6.42+5,147,6.42)
+    }
+    doc.rect(15*frameScale,(15)*frameScale+caseWidth+5,147,6.42)
+    square(0)
+    square(232.8)
+    if(mirror){
+      motorCaseParts(5, caseWidth + 25)
+    }
+    else{
+      motorCaseParts(5, caseWidth + 10)
+    }
+    if(numOfSmallGears){
+        doc.rect(15*frameScale,caseWidth + 50,177-30,35-4)
+      }
+      else if(numOfMediumGears){
+        doc.rect(15*frameScale,15*frameScale+35+15,177-30,35-2)
       }
       else{
-        doc.rect(15*frameScale, 15*frameScale, 262,15)
+        doc.rect(15*frameScale,caseWidth + 81,177-30,35)
       }
-      
+      doc.rect(97,caseWidth+20,55,33)
+      doc.rect(97 + 55 + 3,caseWidth+20,85*frameScale,33)
+      doc.rect(97,caseWidth+20+33+3,55,7)
+      doc.rect(97 + 55 + 3,caseWidth+20+33+3,85*frameScale,7)
+    
+  }
+  
+  crankCase(crankSize)
+  camCase()
+  planetaryCase(180,180)
+  if(planetaryModule){
+    roundedPlanetaryRect(planetaryBraceLength, 180 + 10)
+    doc.addPage()
+    doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+    motorCaseParts(5,0)
+  }
+  if(spurRotate){
+    spurCase(125, spurBeamLength + 165)
+    roundedSpurRect(spurBeamLength)
+  }
+  if(numOfLinGears){
+    if(mirror == 1){
+      doc.addPage();
+      doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+      if(numOfSmallGears){
+        doc.rect(15*frameScale,15*frameScale+35+15,177-30,35-4)
+        doc.rect(15*frameScale,(15+113.4+5)*frameScale+30+15,177-30,35-4)
+      }
+      else if(numOfMediumGears){
+        doc.rect(15*frameScale,15*frameScale+35+15,177-30,35-2)
+        doc.rect(15*frameScale,(15+113.4+5)*frameScale+30+15,177-30,35-2)
+      }
+      else{
+        doc.rect(15*frameScale,15*frameScale+35+15,177-30,35)
+        doc.rect(15*frameScale,(15+113.4+5)*frameScale+30+15,177-30,35)
+      }
+      doc.rect(15*frameScale,(15)*frameScale,55,33)
+      doc.rect((15+5)*frameScale + 55,(15)*frameScale,85*frameScale,33)
+      doc.rect(15*frameScale,(15+5)*frameScale+33,55,7)
+      doc.rect((15+5)*frameScale + 55,(15+5)*frameScale+33,85*frameScale,7)
+      doc.rect((15*frameScale)+55 + 5 +(85*frameScale),(15)*frameScale,55,33)
+      doc.rect((15+5)*frameScale + 55+55+ 5 +(85*frameScale),(15)*frameScale,25,33)
+      doc.rect((15*frameScale)+55 + 5 +(85*frameScale),(15+5)*frameScale+33,55,7)
+      doc.rect((15+5)*frameScale + 55+55 + 5 +(85*frameScale),(15+5)*frameScale+33,25,7)
     }
   }
 }
