@@ -177,7 +177,7 @@ function showParts(){
       console.log(planetaryBrace)
       localStorage.setItem("planetaryModule", 1);
       localStorage.setItem("planetaryBraceLength", planetaryBrace);
-      localStorage.setItem("planetaryGearRadius", compositeArray[1].radius)
+      localStorage.setItem("planetaryGearRadius", compositeArray[0].radius)
     }
   }
   // window.location.href="./jsPDF/parts.html"

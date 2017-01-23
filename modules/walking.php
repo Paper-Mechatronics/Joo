@@ -37,35 +37,38 @@ else{
         <div class = "module-name">
             <p>Walking +</p>
             <select id = "changeMotion" class = "rendering" onchange = "changeMotion()">
-                <option value="upDown">Spin</option>
+                <option value="upDown">Rotate</option>
             </select> 
         </div>
         <div class = "controls">
             <div id = "preview">
             </div>
-            <!-- <div id = "a-slider" class = "slider-div">
-                <label>Horizontal Spacing: <span id = "horizontalSpaceValue"></span></label>
-                <input type="range" id="horizontalSpace" value="40" min="0" max="100" oninput = "horizontalInput(this.value)" onchange = "beamSpacing(this.value)">
+            <div id = "a-slider" class = "slider-div">
+                <label>Linkage 1 (TL): <span id = "walking1Value"></span></label>
+                <input type="range" id="walking1" value="111" min="70" max="170" oninput = "walking1Input(this.value)" onchange = "">
+            </div>
+            <br>
+            
+            <div id = "a-slider" class = "slider-div">
+                <label>Linkage 2 (TL): <span id = "walking2Value"></span></label>
+                <br>
+                <input type="range" id="walking2" value="0" min="0" max="100" oninput = "walking2Input(this.value)" onchange = "pivotHeight(this.value)">
+            </div>
+            <br>
+            <!-- 
+            <div id = "a-slider" class = "slider-div">
+                <label>Linkage 3 (TL): <span id = "connectorLengthValue"></span></label>
+                <br>
+                <input type="range" id="connectorLength" value="320" min="250" max="450" oninput = "walking3Input(this.value)" onchange = "constraintLength(this.value)">
             </div>
             <br>
             <div id = "a-slider" class = "slider-div">
-                <label>Vertical Spacing: <span id = "verticalSpaceValue"></span></label>
+                <label>Linkage 4 (TL): <span id = "pivotPointValue"></span></label>
                 <br>
-                <input type="range" id="verticalSpace" value="0" min="0" max="100" oninput = "verticalInput(this.value)" onchange = "pivotHeight(this.value)">
+                <input type="range" id="pivotPoint" value="0" min="0" max="150" oninput = "walking4Input(this.value)" onchange = "constraintPosition(this.value)">
             </div>
             <br>
-            <div id = "a-slider" class = "slider-div">
-                <label>Connector Length: <span id = "connectorLengthValue"></span></label>
-                <br>
-                <input type="range" id="connectorLength" value="320" min="250" max="450" oninput = "connectorInput(this.value)" onchange = "constraintLength(this.value)">
-            </div>
-            <br>
-            <div id = "a-slider" class = "slider-div">
-                <label>Pivot Point: <span id = "pivotPointValue"></span></label>
-                <br>
-                <input type="range" id="pivotPoint" value="0" min="0" max="150" oninput = "pivotInput(this.value)" onchange = "constraintPosition(this.value)">
-            </div>
-            <br>
+            
             <div id = "a-slider" class = "slider-div">
                 <label>Beam Length: <span id = "beamWidthValue"></span></label>
                 <br>

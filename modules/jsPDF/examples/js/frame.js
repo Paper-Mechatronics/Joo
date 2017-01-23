@@ -1,6 +1,8 @@
 // Define location variables
 centerX = 100*scale *size;
-centerY = 100*scale*size
+centerY = 100*multFactor
+centerXCircle = 120*scale *size;
+centerYCircle = 150*multFactor;
 // The adjust variable is to change part positions based off different sized gears
 var adjust = 0
 if(numOfLargeCranks){
@@ -36,13 +38,20 @@ function drawContinuousGear(){
   // draw circle
   verts2 = []
   for (var i = 0; i < steps; i++) {
-    xValues[i] = (centerX + radius * Math.cos(2 * Math.PI * i / steps));
-    yValues[i] = (centerY + radius * Math.sin(2 * Math.PI * i / steps));
+    if(i>17 && i<17+20){
+      xValues[i] = (centerX + (radius-5) * Math.cos(2 * Math.PI * i / steps));
+      yValues[i] = (centerY + (radius-5) * Math.sin(2 * Math.PI * i / steps));
+    }
+    else{
+      xValues[i] = (centerX + radius * Math.cos(2 * Math.PI * i / steps));
+      yValues[i] = (centerY + radius * Math.sin(2 * Math.PI * i / steps));
+    }
   }
   // add teeth
   for (var i = 0; i < (steps); i++) {
     verts2.push({ x: xValues[i], y: yValues[i]});
     if(i%2 == 0 && i<(steps*(1/3))){
+      // if(i%2 == 0 && i>3 && i<(3+(steps/3))){
       verts2.push({x:(centerX + (radius+toothHeight) * Math.cos((2 * Math.PI * i / steps)+toothWidth)), y: (centerY + (radius+toothHeight) * Math.sin((2 * Math.PI * i / steps)+toothWidth))})
       verts2.push({x:(centerX + (radius+toothHeight) * Math.cos((2 * Math.PI * (i+1) / steps)-toothWidth)), y: (centerY + (radius+toothHeight) * Math.sin((2 * Math.PI * (i+1) / steps)-toothWidth))})
     }
@@ -79,16 +88,16 @@ function drawCam(){
   // change ovarRad and radius based off gear size chosen
   var ovalRad = 0
   if(numOfLargeCam){
-    ovalRad = 125*scale2*size*1.05
-    radius = 80 *scale2*size*1.05
+    ovalRad = 125*multFactor*1.05
+    radius = 80 *multFactor*1.05
   }
   if(numOfMediumCam){
-    ovalRad = 100*scale2*size*1.05
-    radius = 64*scale2*size*1.05
+    ovalRad = 100*multFactor*1.05
+    radius = 64*multFactor*1.05
   }
   if(numOfSmallCam){
-    ovalRad = 75*scale2*size*1.05
-    radius = 48*scale2*size*1.05
+    ovalRad = 75*multFactor*1.05
+    radius = 48*multFactor*1.05
   }
   // reset verts2 array
   verts2 = []
@@ -149,13 +158,15 @@ function drawCrankParts(){
   xValues[24] = xValues[0]
   yValues[24] = yValues[0]
   // push vertices to crankJoint array
-  for (var i = 0; i < steps; i++) {
+  for (var i = 0; i < 25; i++) {
     crankJoint.push({ x: xValues[i], y: yValues[i]});
   }
   // draw circle for joint part
   doc.circle(centerX - 10, centerYCircle + 70 + adjust, 3)
   // draw parts for open close anchor
-  for (var i = 35; i < steps; i++) {
+  xValues = []
+  yValues = []
+  for (var i = 0; i < steps; i++) {
     xValues[i-35] = ((centerX+30) + (7.5) * Math.cos(2 * Math.PI * i / steps));
     yValues[i-35] = ((centerYCircle + 60 + adjust) + (7.5) * Math.sin(2 * Math.PI * i / steps));
   } 
@@ -187,8 +198,9 @@ function drawCrankParts(){
   yValues[yValues.length] = yValues[yValues.length -1]
   xValues[xValues.length] = xValues[0]
   yValues[yValues.length] = yValues[0]
+  console.log(xValues)
   // push to crankAnchor to array
-  for (var i = 0; i < 70; i++) {
+  for (var i = 0; i < 61; i++) {
     crankAnchor.push({ x: xValues[i], y: yValues[i]});
   }
 
@@ -209,7 +221,7 @@ function square(yOffset){
 // create rounded rect for crank linkage
 function roundedRect(length,crankSize){
   doc.roundedRect((15*frameScale), 15*frameScale, length+16, 20, 10, 10)
-  doc.roundedRect((15*frameScale)+20, (15*frameScale)+10-3.36, crankSize*scale2*size*2, 6.72, 3.36, 3.36)
+  doc.roundedRect((15*frameScale)+20, (15*frameScale)+10-3.36, crankSize*multFactor*2, 6.72, 3.36, 3.36)
   doc.circle((15*frameScale)+8,(15*frameScale)+10,2.5)
   doc.circle((15*frameScale)+(length+8),(15*frameScale)+10,2.5)
 }
@@ -217,17 +229,18 @@ function roundedRect(length,crankSize){
 function roundedFlapRect(length,length2){
   for(var i=0;i<2;i++){
     if(i == 0){
-      doc.roundedRect((15*frameScale), centerY + (80*scale*size) + 40+(20*i), length+16, 16, 8, 8)
-      doc.circle((15*frameScale)+8,centerY + (80*scale*size) + 40+8+(20*i),2.5)
-      doc.circle((15*frameScale)+(length+8),centerY + (80*scale*size) + 40+8+(20*i),2.5)
+      doc.roundedRect((15*frameScale), centerY + (80*multFactor) + 40+(20*i), length+16, 16, 8, 8)
+      doc.circle((15*frameScale)+8,centerY + (80*multFactor) + 40+8+(20*i),2.5)
+      doc.circle((15*frameScale)+(length+8),centerY + (80*multFactor) + 40+8+(20*i),2.5)
     }
     else{
-      doc.roundedRect((15*frameScale), centerY + (80*scale*size) + 40+(20*i), length2+16, 16, 8, 8)
-      doc.circle((15*frameScale)+8,centerY + (80*scale*size) + 40+8+(20*i),2.5)
-      doc.circle((15*frameScale)+(length2+8),centerY + (80*scale*size) + 40+8+(20*i),2.5)
+      doc.roundedRect((15*frameScale), centerY + (80*multFactor) + 40+(20*i), length2+16, 16, 8, 8)
+      doc.circle((15*frameScale)+8,centerY + (80*multFactor) + 40+8+(20*i),2.5)
+      doc.circle((15*frameScale)+(length2+8),centerY + (80*multFactor) + 40+8+(20*i),2.5)
     }
   }
 }
+// create rounded rect for spur module
 function roundedSpurRect(length){
   centerY = 0
   for(var i=0;i<1;i++){
@@ -237,32 +250,38 @@ function roundedSpurRect(length){
     doc.circle((15*frameScale)+(length+8),centerY +8 + 10,2.5)
   }
   centerY = centerY + 10 + 16 + 10
-  for(var x = 0; x<16;x++){
-    if(x>3){
-      doc.circle(12 + (12*(x-4)), centerY, 5)
-      doc.circle(12 + (12*(x-4)), centerY, 1.5)
+  for(var x = 0; x<11;x++){
+    if(x>1){
+      doc.circle(50 + (17*(x-4)), centerY, 7.5)
+      doc.circle(50 + (17*(x-4)), centerY, 1.5)
     }
     else{
-      doc.circle(20 + (28*x), centerY + 20, 12.5)
-      doc.circle(20 + (28*x), centerY + 20, 1.5)
+      doc.circle(20 + (28*x), centerY + 22, 12.5)
+      doc.circle(20 + (28*x), centerY + 22, 1.5)
     }
   }
 }
+// create rounded rect for planetary module
 function roundedPlanetaryRect(length, yCoord){
   if(planetaryModule){
     doc.roundedRect(10,yCoord,length+20, 15, 7.5, 7.5)
     doc.circle(10 + 10,yCoord + 7.5, 2)
     doc.circle(10 + 10 + length,yCoord + 7.5, 2)
+    for(var i = 0; i<2; i++){
+      doc.circle(10 + 10 + length+20 + (17*i),yCoord + 7.5, 7.5)
+      doc.circle(10 + 10 + length+20 + (17*i),yCoord + 7.5, 1.5)
+    }
+
   }
 }
 // create case for crank
 function crankCase(crankSize){
   if(numOfMediumCranks || numOfSmallCranks || numOfLargeCranks){
-    frameLength = 10+crankLength-(crankSize*scale2*size*0.8)-12-3+40
-    doc.rect(15*frameScale,(15)*frameScale,frameLength,3*(crankSize*scale2*size))
-    doc.rect((15*frameScale)+frameLength-30,(15*frameScale)+(3*(crankSize*scale2*size)/2)-10,-40,20)
-    doc.circle((15*frameScale)+10, (15*frameScale)+(3*(crankSize*scale2*size)/2), 1.5);
-    doc.circle((15*frameScale)+10+crankLength-(crankSize*scale2*size*0.8)-12-3, (15*frameScale)+(3*(crankSize*scale2*size)/2), 1.5);
+    frameLength = 10+crankLength-(crankSize*multFactor*0.8)-12-3+40
+    doc.rect(15*frameScale,(15)*frameScale,frameLength,3*(crankSize*multFactor))
+    doc.rect((15*frameScale)+frameLength-30,(15*frameScale)+(3*(crankSize*multFactor)/2)-10,-40,20)
+    doc.circle((15*frameScale)+10, (15*frameScale)+(3*(crankSize*multFactor)/2), 1.5);
+    doc.circle((15*frameScale)+10+crankLength-(crankSize*multFactor*0.8)-12-3, (15*frameScale)+(3*(crankSize*multFactor)/2), 1.5);
     square(0)
     square(232.8)
   }
@@ -295,16 +314,16 @@ function camCase(){
 // rack and pinion case
 function RPCase(crankSize){
   if(numOfLinGears){
-    frameLength = 10+crankLength-(crankSize*scale2*size*0.8)-12-3+40
-    doc.rect(15*frameScale,(15)*frameScale,frameLength,3*(crankSize*scale2*size))
+    frameLength = 10+crankLength-(crankSize*multFactor*0.8)-12-3+40
+    doc.rect(15*frameScale,(15)*frameScale,frameLength,3*(crankSize*multFactor))
     if(mirror==0){
-      doc.rect((15*frameScale)+frameLength-30,(15*frameScale)+(3*(crankSize*scale2*size)/2)-10,-40,20)
+      doc.rect((15*frameScale)+frameLength-30,(15*frameScale)+(3*(crankSize*multFactor)/2)-10,-40,20)
     }
     else{
       doc.rect((15*frameScale)+frameLength-30,(15*frameScale)+(frameLength/2)-10,-40,20)
     }
-    doc.circle((15*frameScale)+10, (15*frameScale)+(3*(crankSize*scale2*size)/2), 1.5);
-    doc.circle((15*frameScale)+10+crankLength-(crankSize*scale2*size*0.8)-12-3, (15*frameScale)+(3*(crankSize*scale2*size)/2), 1.5);
+    doc.circle((15*frameScale)+10, (15*frameScale)+(3*(crankSize*multFactor)/2), 1.5);
+    doc.circle((15*frameScale)+10+crankLength-(crankSize*multFactor*0.8)-12-3, (15*frameScale)+(3*(crankSize*multFactor)/2), 1.5);
     square(0)
     square(232.8)
   }
@@ -314,7 +333,7 @@ function flapCase(gear1Space,gear2Space,beamSpace,verticalSpace,motor){
     var caseLength = 180
     doc.circle((15*frameScale) + (caseLength/2) - (beamSpace/2),20, 2)
     doc.circle((15*frameScale) + (caseLength/2) + (beamSpace/2),20, 2)
-    var caseWidth = 20+verticalSpace+(80*scale*size)+10
+    var caseWidth = 20+verticalSpace+(80*multFactor)+10
     doc.rect(15*frameScale,(15)*frameScale,caseLength,caseWidth)
     if(motor ==0){
       doc.circle((15*frameScale) + (caseLength/2) - (gear1Space),20+verticalSpace, 5)
@@ -327,14 +346,17 @@ function flapCase(gear1Space,gear2Space,beamSpace,verticalSpace,motor){
     square(0)
     square(232.8)
 }
+// case for planetary module
 function planetaryCase(caseLength,caseWidth){
   if(planetaryModule){
     doc.rect(15*frameScale,(15)*frameScale,caseLength, caseWidth)
     doc.circle((15*frameScale)+(caseLength/2),(15*frameScale)+(caseWidth/2), 6)
+    // doc.rect((15*frameScale) + (caseLength/2) - 10,(15*frameScale) + (caseWidth/2) - 10,20,40)
     square(0)
     square(232.8)
   }
 }
+// case for spur module
 function spurCase(caseHeight, caseWidth){
   if(spurModule){
     doc.rect(15*frameScale,(15)*frameScale,caseWidth, caseHeight)
@@ -349,7 +371,7 @@ function spurCase(caseHeight, caseWidth){
 
   }
 }
-
+// parts for motor frame 
 function motorCaseParts(xPos, yPos){
   doc.rect(xPos,yPos + 10,28, 60)
   doc.rect(xPos+4,yPos + 20,20, 40)
@@ -372,7 +394,11 @@ function motorCaseParts(xPos, yPos){
 }
 // misc. parts for crank module
 function crankParts(){
-  for(var x = 0; x<8;x++){
+  var spacerNum = 8
+  if(constraintLength){
+    spacerNum = 10
+  }
+  for(var x = 0; x<spacerNum;x++){
     if(x>3){
       doc.circle(15 + (20*(x-4)), centerYCircle + adjust, 7.5)
       doc.circle(15 + (20*(x-4)), centerYCircle + adjust, 1.5)
@@ -382,36 +408,37 @@ function crankParts(){
       doc.circle(15 + (20*x), centerYCircle + 20 + adjust, 1.5)
     }
   }
-  drawCrankParts()
-  for (var i = 0; i<crankJoint.length; i++){
-    if(i+1 == crankJoint.length){
-      doc.line(crankJoint[i].x, crankJoint[i].y, crankJoint[0].x, crankJoint[0].y); // horizontal line
+  if(constraintLength){
+    drawCrankParts()
+    for (var i = 0; i<crankJoint.length; i++){
+      if(i+1 == crankJoint.length){
+        doc.line(crankJoint[i].x, crankJoint[i].y, crankJoint[0].x, crankJoint[0].y); // horizontal line
+      }
+      else{
+        doc.line(crankJoint[i].x, crankJoint[i].y, crankJoint[i+1].x, crankJoint[i+1].y);
+      }
     }
-    else{
-      doc.line(crankJoint[i].x, crankJoint[i].y, crankJoint[i+1].x, crankJoint[i+1].y);
+    for (var i = 0; i<crankAnchor.length; i++){
+      if(i+1 == crankAnchor.length){
+        doc.line(crankAnchor[i].x, crankAnchor[i].y, crankAnchor[0].x, crankAnchor[0].y);
+      }
+      else{
+        doc.line(crankAnchor[i].x, crankAnchor[i].y, crankAnchor[i+1].x, crankAnchor[i+1].y);
+      }
     }
   }
-  for (var i = 0; i<crankAnchor.length; i++){
-    if(i+1 == crankAnchor.length){
-      doc.line(crankAnchor[i].x, crankAnchor[i].y, crankAnchor[0].x, crankAnchor[0].y);
-    }
-    else{
-      doc.line(crankAnchor[i].x, crankAnchor[i].y, crankAnchor[i+1].x, crankAnchor[i+1].y);
-    }
-  }
-
 }
 // misc. parts for flapping module
 function flapParts(){
-  for(var x = 0; x<8;x++){
+  for(var x = 0; x<14;x++){
     doc.circle(20*(x+1), centerY, 7.5)
     doc.circle(20*(x+1), centerY, 1.5)
   }
-  for(var x = 0; x<4;x++){
+  for(var x = 0; x<0;x++){
     doc.circle(20*(x+1), centerY + 15, 5)
     doc.circle(20*(x+1), centerY + 15, 1.5)
   }
-  for(var x = 0; x<4;x++){
+  for(var x = 0; x<1;x++){
     doc.circle(40*(x+1) - 20, centerY + 40, (nonMotorRadius*0.71))
     doc.circle(40*(x+1) - 20, centerY + 40, 1.5)
   }
@@ -504,7 +531,6 @@ function buttonDisplay(){
 }
 // take vertices arrays created from draw functions and create the gears from lines
 function showGear(num){
-  
   // determine number of which sized gears to create
   for(var k=0; k<num*2;k++){
     if(centerY > 30 && radius < 15){
@@ -518,7 +544,19 @@ function showGear(num){
     else{
       drawGear();
     }
-    doc.circle(centerX, centerY, (2));
+    if(planetaryModule){
+      console.log(planetaryGearRadius)
+      console.log(radius)
+      if(Math.round(radius) == Math.round(planetaryGearRadius) && k<2){
+        doc.circle(centerX, centerY, (5));
+      }
+      else{
+        doc.circle(centerX, centerY, (2));
+      }
+    }
+    else{
+      doc.circle(centerX, centerY, (2));
+    }
     if(flappingModule == 1){
       doc.circle(centerX+((radius*0.8)*Math.cos(4.5*0.0174533)), centerY+((radius*0.8)*Math.sin(4.5*0.0174533)), (1.5));
       if(centerX<35 && motor == 1){
@@ -541,16 +579,16 @@ function showGear(num){
         doc.line(verts2[i].x, verts2[i].y, verts2[i+1].x, verts2[i+1].y);
       }
     }
-    centerX = centerX + ((radius*2)+(36*scale*size));
+    centerX = centerX + ((radius*2)+(36*multFactor));
     if((centerX+radius + toothHeight)>300){
       centerX = 30;
       if(spurRotate){
         var largestRadius = Math.max(spur1Radius,spur2Radius,spur3Radius)
         var smallestRadius = Math.min(spur1Radius,spur2Radius,spur3Radius)
-        centerY = centerY + ((largestRadius+smallestRadius)+(36*scale*size));
+        centerY = centerY + ((largestRadius+smallestRadius)+(36*multFactor));
       }
       else{
-        centerY = centerY + ((radius*2)+(36*scale*size));
+        centerY = centerY + ((radius*2)+(36*multFactor));
       }
     }
   }
@@ -562,10 +600,14 @@ function showGear(num){
 
 var doc = new jsPDF("landscape");
 function showAll(){
+  ///////////////////////////// DRAW CASES FOR MODULES ///////////////////////////////
+  // draw image for cardboard
   doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+  // if flapping module draw the flap case
   if(flappingModule || spurFlap){
     flapCase(gear1Spacing, gear2Spacing, beamSpace, verticalSpacing,motor)
   }
+  // draw other flapping module parts on new page
   if(flappingModule == 1){
     doc.addPage()
     doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
@@ -573,6 +615,7 @@ function showAll(){
     roundedFlapRect(flapConnectorLengthL,flapConnectorLengthR)
 
   }
+  // if crank module set size of case
   var crankSize
   if(numOfLargeCranks){
     crankSize = 132
@@ -583,10 +626,13 @@ function showAll(){
   else if(numOfSmallCranks){
     crankSize = 96.8
   }
+  // if rack and pinion module
   if(numOfLinGears){
+    // set case dimmensions
     var caseLength = 180
     var caseWidth = (radius*3)+ width + toothHeight
     doc.rect(15*frameScale,(15)*frameScale,caseLength,caseWidth)
+    // draw a different case if it is mirrored
     if(mirror==0){
       doc.circle((15*frameScale)+caseLength-46.666666667 - 10 - 3,((15)*frameScale)+((1.5*radius)-10) + 10,5)
     }
@@ -604,34 +650,38 @@ function showAll(){
       motorCaseParts(5, caseWidth + 10)
     }
     if(numOfSmallGears){
-        doc.rect(15*frameScale,caseWidth + 50,177-30,35-4)
-      }
-      else if(numOfMediumGears){
-        doc.rect(15*frameScale,15*frameScale+35+15,177-30,35-2)
-      }
-      else{
-        doc.rect(15*frameScale,caseWidth + 81,177-30,35)
-      }
-      doc.rect(97,caseWidth+20,55,33)
-      doc.rect(97 + 55 + 3,caseWidth+20,85*frameScale,33)
-      doc.rect(97,caseWidth+20+33+3,55,7)
-      doc.rect(97 + 55 + 3,caseWidth+20+33+3,85*frameScale,7)
-    
+      doc.rect(15*frameScale,caseWidth + 81,177-30,35-4)
+    }
+    else if(numOfMediumGears){
+      doc.rect(15*frameScale,caseWidth + 81,177-30,35-2)
+    }
+    else{
+      doc.rect(15*frameScale,caseWidth + 81,177-30,35)
+    }
+    doc.rect(97,caseWidth+20,55,33)
+    doc.rect(97 + 55 + 3,caseWidth+20,85*frameScale,33)
+    doc.rect(97,caseWidth+20+33+3,55,7)
+    doc.rect(97 + 55 + 3,caseWidth+20+33+3,85*frameScale,7)
   }
-  
+  // draw crank case if crank module
   crankCase(crankSize)
+  // draw cam case if cam module
   camCase()
+  // draw planetary case if planetary module
   planetaryCase(180,180)
+  // add planetary parts if planetary module
   if(planetaryModule){
     roundedPlanetaryRect(planetaryBraceLength, 180 + 10)
     doc.addPage()
     doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
     motorCaseParts(5,0)
   }
+  // add spur parts if spur rotate module
   if(spurRotate){
     spurCase(125, spurBeamLength + 165)
     roundedSpurRect(spurBeamLength)
   }
+  // if rack and pinion module add parts for the case and module
   if(numOfLinGears){
     if(mirror == 1){
       doc.addPage();

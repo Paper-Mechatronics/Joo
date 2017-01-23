@@ -122,6 +122,7 @@ var symetrical = true;
 var leftWingUI = true;
 var planetaryBrace = 0
 var planetaryMod = 0
+var linkageLength = 111
 
 
 
@@ -1204,7 +1205,6 @@ function createTriConstraintFakeCorners(constraintStart, constraintDestination,l
     }))
     totalJointComposites++;
     World.add(engine.world, jointComposites[totalJointComposites-1]);
-    console.log(jointComposites[totalJointComposites-1].constraints[0].length)
     for(var i = 0; i<compositeArray.length;i++){
       if(constraintStart == compositeArray[i].bodies[0]){
         compositeArray[i].hasConstraint = true;
@@ -2032,6 +2032,60 @@ function flapOffsetInput(value){
 function spurBeamLengthInput(value){
   module.spurBeamLength = parseInt(value)
 }
+function walking1Input(value){
+  jointComposites[0].constraints[0].render.lineWidth = redLineWidth
+  jointComposites[0].constraints[0].render.strokeStyle = "#FF3318"
+  jointComposites[2].constraints[0].render.lineWidth = redLineWidth
+  jointComposites[2].constraints[0].render.strokeStyle = "#FF3318"
+}
+function walking2Input(value){
+  jointComposites[1].constraints[0].render.lineWidth = redLineWidth
+  jointComposites[1].constraints[0].render.strokeStyle = "#FF3318"
+  jointComposites[3].constraints[0].render.lineWidth = redLineWidth
+  jointComposites[3].constraints[0].render.strokeStyle = "#FF3318"
+}
+function walking1(value){
+  linkageLength = parseInt(value)
+}
+function changeLinkage(){
+  var tmpPointAx = jointComposite[1].constraints[0].pointA.x
+  var tmpPointAy = jointComposite[1].constraints[0].pointA.y
+  Composite.remove(jointComposite[1], jointComposite[0].constraints[0])
+        constraints: [Constraint.create({pointA: { x: startOffset*Math.cos(constraintStart.angle), y: startOffset*Math.sin(constraintStart.angle) + startOffset2*Math.cos(constraintStart.angle) },
+          bodyA: constraintStart ,
+          bodyB: constraintDestination ,
+          pointB: { x: destOffset*Math.cos(constraintDestination.angle) + destOffset2*Math.sin(constraintDestination.angle), y: destOffset*Math.sin(constraintDestination.angle) + destOffset2*Math.cos(constraintDestination.angle)}, 
+          length: length,
+          stiffness: stiffness
+          
+        })]
+  // for(var i = 0; i<jointComposites.length; i++){
+  //   Composite.remove(compositeArray[0])
+  // }
+  // Matter.World.clear(engine.world, true)
+  // radius = 25
+  // addTriComposite((window.innerWidth)*(0.75*0.5) - 127.35 ,((window.innerHeight)*(0.5))-33.3333, 100, 100)
+  // compositeArray[0].shape = "triTL"
+  // addCircleComposite((window.innerWidth)*(0.75*0.5) ,(window.innerHeight)*(0.5),25)
+  // changeBodyCircle(1)
+  // addTriComposite((window.innerWidth)*(0.75*0.5) - 127.35 ,compositeArray[0].constraints[0].pointA.y + 100, 100, -100)
+  // compositeArray[2].shape = "triBL"
+  // compositeArray[2].constraints[0].stiffness = 0.000001
+  // addTriComposite((window.innerWidth)*(0.75*0.5) + 127.35 ,((window.innerHeight)*(0.5))-33.3333, -100, 100)
+  // compositeArray[3].shape = "triTR"
+  // addTriComposite((window.innerWidth)*(0.75*0.5) + 127.35 ,compositeArray[3].constraints[0].pointA.y + 100, -100, -100)
+  // compositeArray[4].shape = "triBR"
+  // createTriConstraintFakeCorners(compositeArray[1].bodies[0], compositeArray[0].bodies[0],111,0.00000001)
+  // createTriConstraintFakeCorners(compositeArray[1].bodies[0], compositeArray[2].bodies[0],111,0.5)
+  // createTriConstraintFakeCorners(compositeArray[1].bodies[0], compositeArray[3].bodies[0],111,0.00000001)
+  // createTriConstraintFakeCorners(compositeArray[1].bodies[0], compositeArray[4].bodies[0],111,0.5)
+  // createTriConstraintEdges(compositeArray[0].bodies[0], compositeArray[2].bodies[0])
+  // createTriConstraintEdges(compositeArray[3].bodies[0], compositeArray[4].bodies[0])
+  // Composite.remove(compositeArray[2], compositeArray[2].constraints[0])
+  // Composite.remove(compositeArray[4], compositeArray[4].constraints[0])
+}
+
+
 function changeSpurBeamLength(){
   removeComposite(compositeArray[3].bodies[0])
   addRotateRect(150 + module.spurBeamLength,10,compositeArray[2].constraints[0].pointA.x,compositeArray[2].constraints[0].pointA.y)
@@ -2319,8 +2373,10 @@ Events.on(engine, 'beforeUpdate', function(event) {
         }
       }
       if(walkingModule){
-        compositeArray[1].bodies[0].collisionFilter.mask = otherCategory
-        compositeArray[2].bodies[0].collisionFilter.mask = otherCategory
+        if(compositeArray[1] && compositeArray[2]){
+          compositeArray[1].bodies[0].collisionFilter.mask = otherCategory
+          compositeArray[2].bodies[0].collisionFilter.mask = otherCategory
+        }
         // compositeArray[3].bodies[0].collisionFilter.mask = otherCategory
       }
       if(compositeArray[i].bodies[1]){

@@ -23,7 +23,7 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="http://www.papermech.net/learn/">How To</a></li>
+        <li><a href="http://www.papermech.net/how-to/">How To</a></li>
         <li><a href="http://www.papermech.net/about/">About</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->

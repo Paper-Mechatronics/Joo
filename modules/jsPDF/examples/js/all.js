@@ -38,13 +38,20 @@ function drawContinuousGear(){
   // draw circle
   verts2 = []
   for (var i = 0; i < steps; i++) {
-    xValues[i] = (centerX + radius * Math.cos(2 * Math.PI * i / steps));
-    yValues[i] = (centerY + radius * Math.sin(2 * Math.PI * i / steps));
+    if(i>17 && i<17+20){
+      xValues[i] = (centerX + (radius-5) * Math.cos(2 * Math.PI * i / steps));
+      yValues[i] = (centerY + (radius-5) * Math.sin(2 * Math.PI * i / steps));
+    }
+    else{
+      xValues[i] = (centerX + radius * Math.cos(2 * Math.PI * i / steps));
+      yValues[i] = (centerY + radius * Math.sin(2 * Math.PI * i / steps));
+    }
   }
   // add teeth
   for (var i = 0; i < (steps); i++) {
     verts2.push({ x: xValues[i], y: yValues[i]});
     if(i%2 == 0 && i<(steps*(1/3))){
+      // if(i%2 == 0 && i>3 && i<(3+(steps/3))){
       verts2.push({x:(centerX + (radius+toothHeight) * Math.cos((2 * Math.PI * i / steps)+toothWidth)), y: (centerY + (radius+toothHeight) * Math.sin((2 * Math.PI * i / steps)+toothWidth))})
       verts2.push({x:(centerX + (radius+toothHeight) * Math.cos((2 * Math.PI * (i+1) / steps)-toothWidth)), y: (centerY + (radius+toothHeight) * Math.sin((2 * Math.PI * (i+1) / steps)-toothWidth))})
     }
@@ -243,14 +250,14 @@ function roundedSpurRect(length){
     doc.circle((15*frameScale)+(length+8),centerY +8 + 10,2.5)
   }
   centerY = centerY + 10 + 16 + 10
-  for(var x = 0; x<16;x++){
-    if(x>3){
-      doc.circle(12 + (12*(x-4)), centerY, 5)
-      doc.circle(12 + (12*(x-4)), centerY, 1.5)
+  for(var x = 0; x<11;x++){
+    if(x>1){
+      doc.circle(50 + (17*(x-4)), centerY, 7.5)
+      doc.circle(50 + (17*(x-4)), centerY, 1.5)
     }
     else{
-      doc.circle(20 + (28*x), centerY + 20, 12.5)
-      doc.circle(20 + (28*x), centerY + 20, 1.5)
+      doc.circle(20 + (28*x), centerY + 22, 12.5)
+      doc.circle(20 + (28*x), centerY + 22, 1.5)
     }
   }
 }
@@ -260,6 +267,11 @@ function roundedPlanetaryRect(length, yCoord){
     doc.roundedRect(10,yCoord,length+20, 15, 7.5, 7.5)
     doc.circle(10 + 10,yCoord + 7.5, 2)
     doc.circle(10 + 10 + length,yCoord + 7.5, 2)
+    for(var i = 0; i<2; i++){
+      doc.circle(10 + 10 + length+20 + (17*i),yCoord + 7.5, 7.5)
+      doc.circle(10 + 10 + length+20 + (17*i),yCoord + 7.5, 1.5)
+    }
+
   }
 }
 // create case for crank
@@ -382,7 +394,11 @@ function motorCaseParts(xPos, yPos){
 }
 // misc. parts for crank module
 function crankParts(){
-  for(var x = 0; x<8;x++){
+  var spacerNum = 8
+  if(constraintLength){
+    spacerNum = 10
+  }
+  for(var x = 0; x<spacerNum;x++){
     if(x>3){
       doc.circle(15 + (20*(x-4)), centerYCircle + adjust, 7.5)
       doc.circle(15 + (20*(x-4)), centerYCircle + adjust, 1.5)
@@ -392,36 +408,37 @@ function crankParts(){
       doc.circle(15 + (20*x), centerYCircle + 20 + adjust, 1.5)
     }
   }
-  drawCrankParts()
-  for (var i = 0; i<crankJoint.length; i++){
-    if(i+1 == crankJoint.length){
-      doc.line(crankJoint[i].x, crankJoint[i].y, crankJoint[0].x, crankJoint[0].y); // horizontal line
+  if(constraintLength){
+    drawCrankParts()
+    for (var i = 0; i<crankJoint.length; i++){
+      if(i+1 == crankJoint.length){
+        doc.line(crankJoint[i].x, crankJoint[i].y, crankJoint[0].x, crankJoint[0].y); // horizontal line
+      }
+      else{
+        doc.line(crankJoint[i].x, crankJoint[i].y, crankJoint[i+1].x, crankJoint[i+1].y);
+      }
     }
-    else{
-      doc.line(crankJoint[i].x, crankJoint[i].y, crankJoint[i+1].x, crankJoint[i+1].y);
+    for (var i = 0; i<crankAnchor.length; i++){
+      if(i+1 == crankAnchor.length){
+        doc.line(crankAnchor[i].x, crankAnchor[i].y, crankAnchor[0].x, crankAnchor[0].y);
+      }
+      else{
+        doc.line(crankAnchor[i].x, crankAnchor[i].y, crankAnchor[i+1].x, crankAnchor[i+1].y);
+      }
     }
   }
-  for (var i = 0; i<crankAnchor.length; i++){
-    if(i+1 == crankAnchor.length){
-      doc.line(crankAnchor[i].x, crankAnchor[i].y, crankAnchor[0].x, crankAnchor[0].y);
-    }
-    else{
-      doc.line(crankAnchor[i].x, crankAnchor[i].y, crankAnchor[i+1].x, crankAnchor[i+1].y);
-    }
-  }
-
 }
 // misc. parts for flapping module
 function flapParts(){
-  for(var x = 0; x<8;x++){
+  for(var x = 0; x<14;x++){
     doc.circle(20*(x+1), centerY, 7.5)
     doc.circle(20*(x+1), centerY, 1.5)
   }
-  for(var x = 0; x<4;x++){
+  for(var x = 0; x<0;x++){
     doc.circle(20*(x+1), centerY + 15, 5)
     doc.circle(20*(x+1), centerY + 15, 1.5)
   }
-  for(var x = 0; x<4;x++){
+  for(var x = 0; x<1;x++){
     doc.circle(40*(x+1) - 20, centerY + 40, (nonMotorRadius*0.71))
     doc.circle(40*(x+1) - 20, centerY + 40, 1.5)
   }
@@ -528,7 +545,9 @@ function showGear(num){
       drawGear();
     }
     if(planetaryModule){
-      if(radius == planetaryGearRadius && k<2){
+      console.log(planetaryGearRadius)
+      console.log(radius)
+      if(Math.round(radius) == Math.round(planetaryGearRadius) && k<2){
         doc.circle(centerX, centerY, (5));
       }
       else{
@@ -611,9 +630,10 @@ function showAll(){
               }
             }
             if(j == 0){
-              doc.circle((xMargin+(horizontalSpace*(1/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), (5*multFactor));
-              doc.circle((xMargin+(horizontalSpace*(2/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), (3*multFactor));
-              doc.circle(((xMargin+constraintLength) - increment+(horizontalSpace*(2/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), (3*multFactor));
+              doc.circle((xMargin+(horizontalSpace*(1/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), 1.5);
+              doc.circle((xMargin+(horizontalSpace*(1/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), 3.5);
+              doc.circle((xMargin+(horizontalSpace*(2/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), 1.5);
+              doc.circle(((xMargin+constraintLength) - increment+(horizontalSpace*(2/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), 1.5);
             }
           }
           else{
@@ -629,9 +649,10 @@ function showAll(){
               }
             }
             if(j == 0){
-              doc.circle(((xMargin+constraintLength) - increment+(horizontalSpace*(1/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), (5*multFactor));
-              doc.circle(((xMargin+constraintLength) - increment+(horizontalSpace*(2/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), (3*multFactor));
-              doc.circle((xMargin+(horizontalSpace*(2/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), (3*multFactor));
+              doc.circle(((xMargin+constraintLength) - increment+(horizontalSpace*(1/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), 1.5);
+              doc.circle(((xMargin+constraintLength) - increment+(horizontalSpace*(1/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), 3.5);
+              doc.circle(((xMargin+constraintLength) - increment+(horizontalSpace*(2/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), 1.5);
+              doc.circle((xMargin+(horizontalSpace*(2/3)))*multFactor, (((yMargin+linkageHeight/2)+(linkageHeightPlus*i))*multFactor)+(75*k), 1.5);
             }
           }
           
@@ -685,22 +706,23 @@ function showAll(){
   }
   // if cam draw surrounding piece of paper to go around cam 
   if(numOfCams){
-    if(camType == 0){
-      if(spurFlap || flappingModule || constraintLength){
-        doc.rect(15*frameScale, 85, 283,15)
-      }
-      else{
-        doc.rect(15*frameScale, 15*frameScale, 283,15)
-      }
+    var stripLength
+    if(numOfLargeCam){
+      stripLength = 285
+    }
+    else if(numOfMediumCam){
+      stripLength = 235
+    }
+    else if(numOfSmallCam){
+      stripLength = 195
+    }
+    if(spurFlap || flappingModule || constraintLength){
+      doc.rect(15*frameScale, 85, stripLength,15)
+      doc.text(15*frameScale, 85-2, 'Length = ' + stripLength + "mm");
     }
     else{
-      if(spurFlap || flappingModule || constraintLength){
-        doc.rect(15*frameScale, 85, 262,15)
-      }
-      else{
-        doc.rect(15*frameScale, 15*frameScale, 262,15)
-      }
-      
+      doc.rect(15*frameScale, 15*frameScale, stripLength,15)
+      doc.text(15*frameScale, 15*frameScale-1, 'Length = ' + stripLength + "mm");
     }
   }
   // add image for paper material recomendation
@@ -882,18 +904,18 @@ function showAll(){
       motorCaseParts(5, caseWidth + 10)
     }
     if(numOfSmallGears){
-        doc.rect(15*frameScale,caseWidth + 50,177-30,35-4)
-      }
-      else if(numOfMediumGears){
-        doc.rect(15*frameScale,15*frameScale+35+15,177-30,35-2)
-      }
-      else{
-        doc.rect(15*frameScale,caseWidth + 81,177-30,35)
-      }
-      doc.rect(97,caseWidth+20,55,33)
-      doc.rect(97 + 55 + 3,caseWidth+20,85*frameScale,33)
-      doc.rect(97,caseWidth+20+33+3,55,7)
-      doc.rect(97 + 55 + 3,caseWidth+20+33+3,85*frameScale,7)
+      doc.rect(15*frameScale,caseWidth + 81,177-30,35-4)
+    }
+    else if(numOfMediumGears){
+      doc.rect(15*frameScale,caseWidth + 81,177-30,35-2)
+    }
+    else{
+      doc.rect(15*frameScale,caseWidth + 81,177-30,35)
+    }
+    doc.rect(97,caseWidth+20,55,33)
+    doc.rect(97 + 55 + 3,caseWidth+20,85*frameScale,33)
+    doc.rect(97,caseWidth+20+33+3,55,7)
+    doc.rect(97 + 55 + 3,caseWidth+20+33+3,85*frameScale,7)
   }
   // draw crank case if crank module
   crankCase(crankSize)

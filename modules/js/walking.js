@@ -78,13 +78,6 @@ Events.on(engine, 'afterUpdate', function(event) {
   // console.log(jointComposites[jointComposites.length - 1].constraints[0].length)
   // console.log(compositeArray[1].bodies[0].position.y)
   // console.log(compositeArray[0].bodies[0].vertices[1].y)
-
-
-
-
-
-
-
   if(init == false){
     Body.setAngle(compositeArray[1].bodies[0], degrees(-90))
   }
@@ -162,7 +155,6 @@ Events.on(engine, 'afterUpdate', function(event) {
   // console.log(yChangePerc)
   // Body.setAngle(compositeArray[0].bodies[0], yChangePerc * degrees(90 - 66.826875139))
   // Body.setAngle(compositeArray[1].bodies[0], degrees(-90))
-  var linkageLength = 111
   var triHeight = compositeArray[0].height
   var crankAngle = -compositeArray[1].bodies[0].angle
   var crankAngle2 = compositeArray[1].bodies[0].angle - Math.PI
@@ -240,10 +232,10 @@ Events.on(engine, 'afterUpdate', function(event) {
 ////////////////////// RUN /////////////////////////////
 
 // run the engine
-radius =48
+radius = 25
 addTriComposite((window.innerWidth)*(0.75*0.5) - 127.35 ,((window.innerHeight)*(0.5))-33.3333, 100, 100)
 compositeArray[0].shape = "triTL"
-addGearComposite((window.innerWidth)*(0.75*0.5) ,(window.innerHeight)*(0.5))
+addCircleComposite((window.innerWidth)*(0.75*0.5) ,(window.innerHeight)*(0.5),25)
 changeBodyCircle(1)
 addTriComposite((window.innerWidth)*(0.75*0.5) - 127.35 ,compositeArray[0].constraints[0].pointA.y + 100, 100, -100)
 compositeArray[2].shape = "triBL"
@@ -252,22 +244,12 @@ addTriComposite((window.innerWidth)*(0.75*0.5) + 127.35 ,((window.innerHeight)*(
 compositeArray[3].shape = "triTR"
 addTriComposite((window.innerWidth)*(0.75*0.5) + 127.35 ,compositeArray[3].constraints[0].pointA.y + 100, -100, -100)
 compositeArray[4].shape = "triBR"
-// compositeArray[4].constraints[0].stiffness = 0.0001
-// compositeArray[1].isMotor = true;
-// compositeArray[1].motorSpeed = 0.01
 createTriConstraintFakeCorners(compositeArray[1].bodies[0], compositeArray[0].bodies[0],111,0.00000001)
 createTriConstraintFakeCorners(compositeArray[1].bodies[0], compositeArray[2].bodies[0],111,0.5)
 createTriConstraintFakeCorners(compositeArray[1].bodies[0], compositeArray[3].bodies[0],111,0.00000001)
 createTriConstraintFakeCorners(compositeArray[1].bodies[0], compositeArray[4].bodies[0],111,0.5)
-// jointComposites[jointComposites.length - 3].constraints[0].stiffness = 0.5
-// jointComposites[jointComposites.length - 3].constraints[0].length = 111
-// jointComposites[jointComposites.length - 1].constraints[0].stiffness = 0.5
-// jointComposites[jointComposites.length - 1].constraints[0].length = 111
 createTriConstraintEdges(compositeArray[0].bodies[0], compositeArray[2].bodies[0])
 createTriConstraintEdges(compositeArray[3].bodies[0], compositeArray[4].bodies[0])
-// jointComposites[jointComposites.length - 1].constraints[0].stiffness = 1
-// jointComposites[jointComposites.length - 2].constraints[0].stiffness = 1
-// jointComposites[jointComposites.length - 3].constraints[0].stiffness = 1
 Composite.remove(compositeArray[2], compositeArray[2].constraints[0])
 Composite.remove(compositeArray[4], compositeArray[4].constraints[0])
 engine.world.gravity.y = 5;
