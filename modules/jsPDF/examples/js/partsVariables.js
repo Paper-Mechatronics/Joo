@@ -38,6 +38,10 @@ var horizontalSpace = parseInt(localStorage.getItem("horizontalSpace"))
 var continuous = parseInt(localStorage.getItem("continuous"))
 var crankLength = parseInt(localStorage.getItem("crankLength"))*scale2*size
 var mirror = parseInt(localStorage.getItem("mirror"))
+var shared = parseInt(localStorage.getItem("shared"))
+var paired = parseInt(localStorage.getItem("paired"))
+console.log(shared)
+console.log(paired)
 var flappingModule = parseInt(localStorage.getItem("flappingModule"))
 var gear1Spacing = parseInt(localStorage.getItem("gear1Spacing"))*scale*size
 var gear2Spacing = parseInt(localStorage.getItem("gear2Spacing"))*scale*size
@@ -76,11 +80,19 @@ var planetaryModule = 0;
 var planetaryModule = parseInt(localStorage.getItem("planetaryModule"))
 var planetaryBraceLength = parseInt(localStorage.getItem("planetaryBraceLength"))*scale2*size
 var planetaryGearRadius = parseInt(localStorage.getItem("planetaryGearRadius"))*scale2*size
-console.log(planetaryBraceLength)
-if(spurRotate || spurFlap || flappingModule || numOfCams || numOfLargeCranks || numOfMediumCranks || numOfSmallCranks || numOfLinGears){
-	planetaryModule = 0;
-}
-
+var walkingModule = parseInt(localStorage.getItem("walkingModule"))
+var walkTop = parseInt(localStorage.getItem("walkTop"))*scale2*size
+console.log(walkTop)
+var walkMiddle = parseInt(localStorage.getItem("walkMiddle"))*scale2*size
+console.log(walkMiddle)
+var walkBottom = parseInt(localStorage.getItem("walkBottom"))*scale2*size
+console.log(walkBottom)
+var walkLinkage = parseInt(localStorage.getItem("walkLinkage"))*scale2*size
+console.log(walkLinkage)
+var triWidth = parseInt(localStorage.getItem("triWidth"))*scale2*size
+var triHeight = parseInt(localStorage.getItem("triHeight"))*scale2*size
+var triSpace = parseInt(localStorage.getItem("triSpace"))*scale2*size
+var walkLink = parseInt(localStorage.getItem("walkLink"))*scale2*size
 var linkageSpacing = 30
 var linkageHeight = 90
 var linkageHeightPlus = linkageHeight + linkageSpacing

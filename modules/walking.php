@@ -16,7 +16,7 @@ else{
     <meta charset="UTF-8">
     <title>Walking</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <link rel="shortcut icon" type="image/png" href="wp-content/uploads/2016/06/cropped-noun_221895_cc-32x32.png"/>
+    <link rel="shortcut icon" type="image/png" href="img/logo_webTab.png"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
@@ -45,14 +45,20 @@ else{
             </div>
             <div id = "a-slider" class = "slider-div">
                 <label>Linkage 1 (TL): <span id = "walking1Value"></span></label>
-                <input type="range" id="walking1" value="111" min="70" max="170" oninput = "walking1Input(this.value)" onchange = "">
+                <input type="range" id="walking1" value="111" min="80" max="120" oninput = "walking1Input(this.value)" onchange = "walking1(this.value)">
             </div>
             <br>
             
             <div id = "a-slider" class = "slider-div">
                 <label>Linkage 2 (TL): <span id = "walking2Value"></span></label>
                 <br>
-                <input type="range" id="walking2" value="0" min="0" max="100" oninput = "walking2Input(this.value)" onchange = "pivotHeight(this.value)">
+                <input type="range" id="walking2" value="63" min="40" max="100" oninput = "walking2Input(this.value)" onchange = "walking2(this.value)">
+            </div>
+            <br>
+            <div id = "a-slider" class = "slider-div">
+                <label>Linkage 3 (TL): <span id = "walking2Value"></span></label>
+                <br>
+                <input type="range" id="walking2" value="100" min="100" max="200" oninput = "walking3Input(this.value)" onchange = "">
             </div>
             <br>
             <!-- 

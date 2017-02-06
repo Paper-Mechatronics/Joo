@@ -373,23 +373,11 @@ function spurCase(caseHeight, caseWidth){
 }
 // parts for motor frame 
 function motorCaseParts(xPos, yPos){
-  doc.rect(xPos,yPos + 10,28, 60)
-  doc.rect(xPos+4,yPos + 20,20, 40)
-  doc.rect(xPos+30,yPos + 10,6, 60)
-  doc.rect(xPos+40,yPos + 10,6, 60)
   for(var i = 0; i<2;i++){
-    doc.line(xPos+50 + (20*i),yPos + 10,xPos+50 + (20*i), yPos + 10 + 37)
-    doc.line(xPos+50 + (20*i),yPos + 10 + 37,xPos+50+17 + (20*i), yPos + 10 + 37)
-    doc.line(xPos+50+17 + (20*i),yPos + 10 + 37,xPos+50+17 + (20*i), yPos + 10 + 37 - 5)
-    doc.line(xPos+50+17 + (20*i),yPos + 10 + 37 - 5,xPos+50+17-7 + (20*i), yPos + 10 + 37 - 5)
-    doc.line(xPos+50+17-7 + (20*i),yPos + 10 + 37 - 5,xPos+50+17-7 + (20*i), yPos + 10 + 37 - 5-3)
-    doc.line(xPos+50+17-7 + (20*i),yPos + 10 + 37 - 5 - 3,xPos+50+17 + (20*i), yPos + 10 + 37 - 5-3)
-    doc.line(xPos+50+17 + (20*i),yPos + 10 + 37 - 5 - 3,xPos+50+17 + (20*i), yPos + 10 + 37 - 5-3-21)
-    doc.line(xPos+50+17 + (20*i),yPos + 10 + 37 - 5 - 3 - 21,xPos+50+17-7 + (20*i), yPos + 10 + 37 - 5-3-21)
-    doc.line(xPos+50+17 - 7 + (20*i),yPos + 10 + 37 - 5 - 3 - 21,xPos+50+17-7 + (20*i), yPos + 10 + 37 - 5-3-21 - 3)
-    doc.line(xPos+50+17 - 7 + (20*i),yPos + 10 + 37 - 5 - 3 - 21 - 3,xPos+50+17 + (20*i), yPos + 10 + 37 - 5-3-21 - 3)
-    doc.line(xPos+50+17 + (20*i),yPos + 10 + 37 - 5 - 3 - 21 - 3,xPos+50+17 + (20*i), yPos + 10 + 37 - 5-3-21 - 3 - 5)
-    doc.line(xPos+50+17 + (20*i),yPos + 10 + 37 - 5 - 3 - 21 - 3 - 5,xPos+50 + (20*i), yPos + 10 + 37 - 5-3-21 - 3 - 5)
+    doc.rect(xPos + (30*i),yPos + 10,28, 60)
+    doc.rect(xPos+4 + (30*i),yPos + 20,20, 40)
+    // doc.rect(xPos+30 + (50*i),yPos + 10,6, 60)
+    // doc.rect(xPos+40 + (50*i),yPos + 10,6, 60)
   }
 }
 // misc. parts for crank module
