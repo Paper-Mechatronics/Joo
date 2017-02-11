@@ -36,7 +36,7 @@ function changeMods(){
                 document.getElementById('four-href').href = "rotate.php";
                 document.getElementById('four-img').src = "img/rotate3.gif";
                 document.getElementById('five').innerHTML = "Walking";
-                document.getElementById('five-href').href = "walking.php";
+                document.getElementById('five-href').href = "#";
                 document.getElementById('five-img').src = "img/walking.gif";
                 document.getElementById("six-href").style.visibility = "hidden";
                 // document.getElementById('six-img').src = "img/front_motion_flap.png";

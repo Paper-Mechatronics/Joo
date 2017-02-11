@@ -590,15 +590,15 @@ var doc = new jsPDF("landscape");
 function showAll(){
   ///////////////////////////// DRAW CASES FOR MODULES ///////////////////////////////
   // draw image for cardboard
-  doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+  doc.addImage(cardBoardKey, 'PNG', 225, 167, 70.945, 45.86);
   // if flapping module draw the flap case
   if(flappingModule || spurFlap){
     flapCase(gear1Spacing, gear2Spacing, beamSpace, verticalSpacing,motor)
   }
   // draw other flapping module parts on new page
-  if(flappingModule == 1){
+  if(flappingModule || spurFlap){
     doc.addPage()
-    doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+    doc.addImage(cardBoardKey, 'PNG', 225, 167, 70.945, 45.86);
     flapParts()
     roundedFlapRect(flapConnectorLengthL,flapConnectorLengthR)
 
@@ -619,13 +619,22 @@ function showAll(){
     // set case dimmensions
     var caseLength = 180
     var caseWidth = (radius*3)+ width + toothHeight
+    if(paired == 1){
+      caseWidth = (radius*5)+ width + toothHeight
+    }
     doc.rect(15*frameScale,(15)*frameScale,caseLength,caseWidth)
     // draw a different case if it is mirrored
     if(mirror==0){
       doc.circle((15*frameScale)+caseLength-46.666666667 - 10 - 3,((15)*frameScale)+((1.5*radius)-10) + 10,5)
     }
     else{
-      doc.rect((15*frameScale)+caseLength-((2*radius)-(40/3)),((15)*frameScale)+((caseWidth/2)-10),-40,20)
+      if(paired){
+        doc.circle((15*frameScale)+caseLength-46.666666667 - 10 - 3,((15)*frameScale)+((1.5*radius)-10) + 10,5)
+      }
+      else if(shared){
+        doc.rect((15*frameScale)+caseLength-((2*radius)-(40/3)),((15)*frameScale)+((caseWidth/2)-10),-40,20)
+      }
+      
       doc.rect(15*frameScale,(15)*frameScale+caseWidth+5+6.42+5,147,6.42)
     }
     doc.rect(15*frameScale,(15)*frameScale+caseWidth+5,147,6.42)
@@ -637,19 +646,23 @@ function showAll(){
     else{
       motorCaseParts(5, caseWidth + 10)
     }
-    if(numOfSmallGears){
+    if(!mirror){
+      if(numOfSmallGears){
       doc.rect(15*frameScale,caseWidth + 81,177-30,35-4)
+      }
+      else if(numOfMediumGears){
+        doc.rect(15*frameScale,caseWidth + 81,177-30,35-2)
+      }
+      else{
+        doc.rect(15*frameScale,caseWidth + 81,177-30,35)
+      }
+      doc.rect(97,caseWidth+20,55,33)
+      doc.rect(97 + 55 + 3,caseWidth+20,85*frameScale,33)
+      doc.rect(97,caseWidth+20+33+3,55,7)
+      doc.rect(97 + 55 + 3,caseWidth+20+33+3,85*frameScale,7)
     }
-    else if(numOfMediumGears){
-      doc.rect(15*frameScale,caseWidth + 81,177-30,35-2)
-    }
-    else{
-      doc.rect(15*frameScale,caseWidth + 81,177-30,35)
-    }
-    doc.rect(97,caseWidth+20,55,33)
-    doc.rect(97 + 55 + 3,caseWidth+20,85*frameScale,33)
-    doc.rect(97,caseWidth+20+33+3,55,7)
-    doc.rect(97 + 55 + 3,caseWidth+20+33+3,85*frameScale,7)
+    
+    
   }
   // draw crank case if crank module
   crankCase(crankSize)
@@ -661,7 +674,7 @@ function showAll(){
   if(planetaryModule){
     roundedPlanetaryRect(planetaryBraceLength, 180 + 10)
     doc.addPage()
-    doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+    doc.addImage(cardBoardKey, 'PNG', 225, 167, 70.945, 45.86);
     motorCaseParts(5,0)
   }
   // add spur parts if spur rotate module
@@ -673,7 +686,7 @@ function showAll(){
   if(numOfLinGears){
     if(mirror == 1){
       doc.addPage();
-      doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+      doc.addImage(cardBoardKey, 'PNG', 225, 167, 70.945, 45.86);
       if(numOfSmallGears){
         doc.rect(15*frameScale,15*frameScale+35+15,177-30,35-4)
         doc.rect(15*frameScale,(15+113.4+5)*frameScale+30+15,177-30,35-4)
@@ -698,3 +711,4 @@ function showAll(){
   }
 }
 showAll()
+
