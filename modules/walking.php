@@ -33,6 +33,17 @@ else{
     <script src="js/updateUI.js" type="text/javascript"></script>
     <script src="js/showParts.js" type="text/javascript"></script>
     <script src="js/scaling.js" type="text/javascript"></script>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="http://www.papermech.net/">
+            <img id = "logo" alt="Brand" src="img/logo_blue-03.png">
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        </div><!-- /.navbar-collapse -->
+      </div>
+    </nav>
     <div class = "container">
         <div class = "module-name">
             <p>Walking +</p>
@@ -122,9 +133,9 @@ else{
             </a>
             <a href = "http://www.papermech.net/create.php">
                 <div class = "footer-btn-div">
-                    <button class = "footer-btn object btn btn-primary" type="button" ><img class = "btn-icon" src="img/home.png"></button>
+                    <button class = "footer-btn object btn btn-primary" type="button" ><img class = "btn-icon" src="img/back.png"></button>
                     <br>
-                    <p>Home</p>
+                    <p>Back</p>
                 </div>
             </a>
             <span class="stretch"></span>

@@ -370,7 +370,7 @@ function spurCase(caseHeight, caseWidth){
     doc.circle((15*frameScale)+(40)+(spur1Radius + (spur2Radius*2) + spur3Radius)+(toothHeight*2.4),(15*frameScale)+(caseHeight/2), 2)
     motorCaseParts((15*frameScale),(15)*frameScale+caseHeight )
     doc.addPage();
-    doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+    doc.addImage(cardBoardKey, 'PNG', 225, 167, 70.945, 45.86);
     square(0)
     square(232.8)
 
@@ -784,7 +784,7 @@ function showAll(){
   }
   // add image for paper material recomendation
   if((spurFlap || flappingModule || constraintLength || numOfCams)&& !spurRotate){
-    doc.addImage(paperKey, 'PNG', 225, 175, 70.945, 35);
+    doc.addImage(paperKey, 'PNG', 225, 167, 70.945, 45.86);
     doc.addPage();
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -793,10 +793,10 @@ function showAll(){
   ///////////////////////////////////////GEAR GENERATION PAGE/////////////////////////////////////////////////////////////
 
   if(numOfLargeGears || numOfMediumGears || numOfSmallGears){
-    doc.addImage(matBoardKey, 'PNG', 225, 175, 70.945, 35);
+    doc.addImage(matBoardKey, 'PNG', 225, 167, 70.945, 45.86);
   }
   else{
-    doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+    doc.addImage(cardBoardKey, 'PNG', 225, 167, 70.945, 45.86);
   }
   // if gears exist in the simulator then draw them with the show gear function
   if(numOfLargeGears){
@@ -925,7 +925,7 @@ function showAll(){
   }
   
   // draw image for cardboard
-  doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+  doc.addImage(cardBoardKey, 'PNG', 225, 167, 70.945, 45.86);
   // if flapping module draw the flap case
   if(flappingModule || spurFlap){
     flapCase(gear1Spacing, gear2Spacing, beamSpace, verticalSpacing,motor)
@@ -933,7 +933,7 @@ function showAll(){
   // draw other flapping module parts on new page
   if(flappingModule || spurFlap){
     doc.addPage()
-    doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+    doc.addImage(cardBoardKey, 'PNG', 225, 167, 70.945, 45.86);
     flapParts()
     roundedFlapRect(flapConnectorLengthL,flapConnectorLengthR)
 
@@ -1009,7 +1009,7 @@ function showAll(){
   if(planetaryModule){
     roundedPlanetaryRect(planetaryBraceLength, 180 + 10)
     doc.addPage()
-    doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+    doc.addImage(cardBoardKey, 'PNG', 225, 167, 70.945, 45.86);
     motorCaseParts(5,0)
   }
   // add spur parts if spur rotate module
@@ -1021,7 +1021,7 @@ function showAll(){
   if(numOfLinGears){
     if(mirror == 1){
       doc.addPage();
-      doc.addImage(cardBoardKey, 'PNG', 225, 175, 70.945, 35);
+      doc.addImage(cardBoardKey, 'PNG', 225, 167, 70.945, 45.86);
       if(numOfSmallGears){
         doc.rect(15*frameScale,15*frameScale+35+15,177-30,35-4)
         doc.rect(15*frameScale,(15+113.4+5)*frameScale+30+15,177-30,35-4)
